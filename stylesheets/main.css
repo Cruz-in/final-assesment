@@ -961,6 +961,17 @@ html.dark-mode .glass-toggle-knob {
   box-shadow: none !important;
 }
 
+/* --- TOUCH TARGET BOUNDARY EXPANSION --- */
+.glass-toggle-label::before {
+  content: "";
+  position: absolute;
+  top: -8px; /* Artificially pads the interactive field height from 34px to 50px */
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  pointer-events: auto; /* Claims ownership of mouse interactions in this space */
+}
+
 /* =====================================================================
   06. KINETIC INTRO SCREEN
   ===================================================================== 
@@ -2735,6 +2746,31 @@ html.dark-mode .drawer-results a:hover {
   transform: translate3d(-6px, -6px, 0) !important;
   box-shadow: 6px 6px 0px 0px var(--accent-color) !important;
   transition-delay: 0s !important;
+}
+
+/* --- WCAG ACCESSIBILITY BYPASS TARGETS --- */
+.skip-link {
+  position: absolute;
+  top: -100px; /* Throws it completely off-screen by default */
+  left: 2rem;
+  background-color: var(--accent-color);
+  color: #ffffff !important;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  padding: 1.5rem 3rem;
+  border: 2px solid var(--text-primary);
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 99999; /* Forces it to sit in front of your Kinetic Intro Screen layout */
+  transition: top 0.2s var(--curve-brutal);
+}
+
+/* Snaps smoothly into clear visual sight the moment a user hits the Tab key */
+.skip-link:focus-visible {
+  top: 2rem;
+  outline: 3px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
 /* =====================================================================
